@@ -20,7 +20,7 @@ pipeline {
         stage('Init') {
             steps {
                 script {
-                    env.APP_NAME = "java-maven"
+                    env.APP_NAME = sh(script: "mvn -q -DforceStdout help:evaluate -Dexpression=project.name", returnStdout: true).trim()
                     env.APP_VERSION = sh(script: "mvn -q -DforceStdout help:evaluate -Dexpression=project.version", returnStdout: true).trim()
                 }
             }
